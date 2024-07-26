@@ -1,0 +1,157 @@
+###  ChessMaster2023 by Ilyin Yegor changelog  ###
+
+###  Version 0.6.1  ###
+	* Several minor improvements / 29.12.2023
+	
+	* Bishop pair | + ~3 elo
+	* Internal Iterative Deepening | + ~6 elo
+	
+	* Implemented position extracting and coordinate descent for future auto-tuning
+	
+	* Fixed operations with score pairs | - ~4 elo (most likely because it slightly affected evaluation,
+	  must be okey once the scores are rebalanced)
+	
+	* Power: ~2434 elo
+
+###  Version 0.6.0  ###
+	* Separate endgames evaluation update / 25.12.2023
+	
+	* Aspiration Window + separate lone king evaluation | + ~38 elo
+	* Some endgames evaluation as a draw + KNBK | + ~14 elo
+	* KPsKPs endgame (no visible power boost, but plays those endgames better)
+	* Aspiration Window additional widening iteration | + ~10 elo
+	
+	* Power: 2429 elo
+
+
+###  Version 0.5  ###
+	* Prunings and reductions update / 23.12.2023
+	
+	* Principal Variation Search | + ~10 elo
+	* Futility Pruning + Razoring | + ~100 elo
+	* Null Move Pruning | + ~60 elo
+	* Double Null Move | + ~30 elo
+	* LMR | + ~45 elo
+	* Shallow Depth SEE Pruning | + ~25 elo
+	* History Leaf Pruning | + ~15 elo
+	
+	* Mate Distance Pruning | no significant power boost, it is more helpful for analysis mode
+	
+	* Power: 2367 elo
+
+
+###  Version 0.4  ###
+	* Pawns update / 21.12.2023
+	
+	* Defended pawns | + ~30 elo
+	* Defended pawns based on advancement | + ~10 elo
+	* Passed pawns | + ~15 elo
+	* Backward pawns | + ~5 elo
+	* Double pawns | + ~20 elo
+	* Pawn islands | + ~10 elo
+	* Isolated pawns | + ~3 elo (after 1000 games)
+	* Pawn distortion | + ~2 elo (after 1200 games)
+	* Pawn hash tables | + ~25 elo
+	
+	* Added simple tuning method: the engine can read a set of positions and compute the mean evaluation error.
+	
+	* Simple evaluation (manual) tuning | + ~25 elo
+	
+	* The engine reached the level of my old engine this one is based on.
+	
+	* Power: 2110 elo
+
+
+###  Version 0.3  ###
+	* Move ordering update / 19.12.2023
+	
+	* Captures ordering with MVV/LVA | + ~170 elo
+	* History heuristic | + ~90 elo
+	* Modified success rate formula: (successes + 1) / (tries + 2) | + ~30 elo
+	* History values division by 8 instead of clearing before another root search | + ~35 elo
+	
+	* The latter is mostly applicable to short time controls
+	
+	* Transposition table | + ~100 elo
+	* Two-tier transposition table scheme | + ~35 elo
+	* Killer moves | + ~15 elo
+	
+	* Power: 2000 elo
+
+
+###  Version 0.2.1  ###
+	* Minor PV update / 16.12.2023
+	
+	* Added the Principal Variation output.
+	* Engine now resigns if:
+		1. It is playing in Xboard mode
+		2. It is playing against a computer/itself
+		3. It is at a disadvantage of 9 pawns in comparison to the initial position
+		
+	* Root search for only depth 1 when there is a single legal move | + ~5 elo
+	* Tempo score for search stabilization | +- ~5 elo
+	
+	* Fixed a bug in the root move ordering: it was not correctly ordered due to
+	  not saving the iteration's search results into the moves' scores | + ~30 elo
+	  
+	* Power: ~1570 elo
+
+###  Version 0.2  ###
+	* Quiescence search update / 16.12.2023
+
+	* Quiescence search (for captures/promotions/chech evasions) | + ~200 elo
+	* SEE pruning in quiescence search | + ~110 elo
+	* Delta pruning in quiescence search | + ~70 elo
+	* Checks in quiescence search | + ~70 elo
+	* Alpha value in the root and moves sorting in the root | + ~70 elo
+	
+	* Fixed bug: incorrect repetition draw compution in search | + ~10 elo
+	* Fixed bug: doing invalid move in very short time control due to
+	  unfinished first iteration of root search | In very short time control + ~90 elo
+	* Fixed bug: inadequate time management in short time controls | + ~70 elo in short time controls
+	
+	* New feature: when playing a match in Xboard against another version of the engine,
+	  it uses less time in a move (for quicker testing).
+		
+	* Power: 1540 elo
+
+
+
+###  Version 0.1.1  ###
+	* Minor improvements / 13.12.2023
+	
+	* Added tests and fixed several bugs in move generation and FEN reading.
+	* Slight move doing/undoing optimizations (~4-7% faster)
+	* Reduced Intel-dependence (now should compile for other CPUs).
+	* Added GCC support and a Makefile.
+	* Improved console interface of the engine.
+
+
+###  Version 0.1  ###
+	* The first version of the engine / 12.12.2023
+	
+	* Implemented the Board class using Bit Boards and a number of tricks
+	  related to the board/pieces, some of which were taken from the Stockfish
+	  and some from my old ChessMaster project that I have never published.
+	* Magic bitboards for move generation (the one from Stockfish).
+	  
+	* Correct move generation and making/unmaking moves.
+	* Loading from FEN and getting a FEN from the current position.
+	* Can detect when the game is over with mate, stalemate, the fifty rule,
+	  the triple repetition rule and with low material rule.
+	* Zobrist tables.
+	* Performance test function.
+	
+	* Static evaluation:
+	* Simple evaluation based on material and Piece-Square Tables (written based
+	  on intuition).
+	* Separate scores for opening/middlegame and for endgame.
+	
+	* Search:
+	* Simple search based on NegaMax and AlphaBeta.
+	
+	* Implemented 3 modes of work: own console interface, UCI, and Xboard/Winboard (version >= 2).
+	* Tested in Winboard 4.8 and in Arena (in UCI mode).
+	* Power tested in a tournament (0:10 + 1) of 150 games in total with several engines of comparable level.
+	* Those engines (Cassandre and Belofte) were taken from CCRL.
+	* Power: 900 elo - evaluated with Bayeselo.

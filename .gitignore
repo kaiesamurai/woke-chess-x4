@@ -1,0 +1,15 @@
+# No Visual Studio build files
+x64/
+x86/
+
+# No Visual Studio cache
+.vs/
+.packages/
+
+# Other ignored files
+*.user
+*.hint
+*.editorconfig
+*.o
+*.fen
+ChessMaster2023/log.txt
